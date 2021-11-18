@@ -10,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.env.Environment;
 
 /**
  * @Copyright: Soul
@@ -20,7 +21,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 @Configuration
 @ComponentScan(value = "com.imooc")
 public class Entrance {
-	public static void main(String[] args) {
+	public static void main1(String[] args) {
 		ApplicationContext applicationContext = new FileSystemXmlApplicationContext("//Users/tianyu/IdeaProjects/spring-framework-5.2.0.RELEASE/spring-demo/src/main/resources/spring/spring-config.xml");
 		String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 		for (String beanDefinitionName : beanDefinitionNames) {
@@ -50,7 +51,7 @@ public class Entrance {
 		System.out.println("userFactoryBean1b: " + userFactoryBean1b);
 	}
 
-	public static void main1(String[] args) {
+	public static void main2(String[] args) {
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
 		String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 		for (String beanDefinitionName : beanDefinitionNames) {
@@ -58,5 +59,26 @@ public class Entrance {
 		}
 		WelcomeController welcomeController = applicationContext.getBean("welcomeController", WelcomeController.class);
 		welcomeController.handleRequest();
+	}
+
+	public static void main(String[] args) {
+		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
+		Environment environment = applicationContext.getEnvironment();
+		String[] activeProfiles = environment.getActiveProfiles();
+
+		String param1 = environment.getProperty("param1");
+		System.out.println("param1: " + param1);
+
+		String param2 = environment.getProperty("param2");
+		System.out.println("param2: " + param2);
+
+
+		for (String activeProfile : activeProfiles) {
+			System.out.println("activeProfile: " + activeProfile);
+		}
+		String[] defaultProfiles = environment.getDefaultProfiles();
+		for (String defaultProfile : defaultProfiles) {
+			System.out.println("defaultProfile: " + defaultProfile);
+		}
 	}
 }
