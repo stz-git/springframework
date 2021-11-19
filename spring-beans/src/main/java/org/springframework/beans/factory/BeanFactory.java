@@ -65,6 +65,7 @@ import org.springframework.lang.Nullable;
  *
  * <p>Bean factory implementations should support the standard bean lifecycle interfaces
  * as far as possible. The full set of initialization methods and their standard order is:
+ * Bean工厂实现应该尽可能地支持标准Bean生命周期接口。完整的初始化方法及其标准顺序是
  * <ol>
  * <li>BeanNameAware's {@code setBeanName}
  * <li>BeanClassLoaderAware's {@code setBeanClassLoader}
@@ -125,12 +126,12 @@ public interface BeanFactory {
 
 
 	/**
-	 * Return an instance, which may be shared or independent, of the specified bean.
+	 * 返回指定bean的一个实例，该实例可以是共享的，也可以是独立的。
 	 * <p>This method allows a Spring BeanFactory to be used as a replacement for the
 	 * Singleton or Prototype design pattern. Callers may retain references to
 	 * returned objects in the case of Singleton beans.
 	 * <p>Translates aliases back to the corresponding canonical bean name.
-	 * Will ask the parent factory if the bean cannot be found in this factory instance.
+	 * 在此工厂实例中找不到该bean时，将询问父工厂
 	 * @param name the name of the bean to retrieve
 	 * @return an instance of the bean
 	 * @throws NoSuchBeanDefinitionException if there is no bean with the specified name
